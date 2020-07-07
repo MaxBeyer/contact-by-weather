@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class ContactByWeatherApplication
 
 fun main(args: Array<String>) {
-	runApplication<ContactByWeatherApplication>(*args)
+    runApplication<ContactByWeatherApplication>(*args)
 }
