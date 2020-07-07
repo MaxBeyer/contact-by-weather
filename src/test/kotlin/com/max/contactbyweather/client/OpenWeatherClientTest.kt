@@ -11,7 +11,6 @@ import com.max.contactbyweather.config.ServiceProperties
 import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.web.client.RestTemplate
 
@@ -46,7 +45,7 @@ class OpenWeatherClientTest {
     @BeforeEach
     fun setup() {
         wiremock.start()
-        properties.openWeatherUrl = "http://localhost:${wiremock.port()}/forecast?q={city}&appid={appId}&"
+        properties.openWeatherUrl = "http://localhost:${wiremock.port()}/forecast?q={city}&appid={appId}"
     }
 
     @AfterEach
@@ -54,7 +53,6 @@ class OpenWeatherClientTest {
         wiremock.stop()
     }
 
-    @Disabled("not implemented")
     @Test
     fun `gets 5 day forecast`() {
         // Given
@@ -68,6 +66,6 @@ class OpenWeatherClientTest {
         response.shouldNotBeNull()
         wiremock.verify(getRequestedFor(urlPathEqualTo("/forecast"))
                 .withQueryParam("q", equalTo("minneapolis"))
-                .withQueryParam("appid", equalTo("09110e603c1d5c272f94f64305c09436&")))
+                .withQueryParam("appid", equalTo("09110e603c1d5c272f94f64305c09436")))
     }
 }
