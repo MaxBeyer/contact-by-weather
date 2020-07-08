@@ -8,6 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo
 import com.max.contactbyweather.config.ServiceProperties
+import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldNotBeNull
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -64,6 +65,7 @@ class OpenWeatherClientTest {
 
         // Then
         response.shouldNotBeNull()
+        response.city?.name shouldBeEqualTo "Minneapolis"
         wiremock.verify(getRequestedFor(urlPathEqualTo("/forecast"))
                 .withQueryParam("q", equalTo("minneapolis"))
                 .withQueryParam("appid", equalTo("09110e603c1d5c272f94f64305c09436")))
