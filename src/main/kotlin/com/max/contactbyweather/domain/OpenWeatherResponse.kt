@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class OpenWeatherResponse(
-    val city: City?,
-    val cnt: Int?,
-    val cod: String?,
-    val list: List<Day>?,
-    val message: Int?
+    val city: City? = null,
+    val cnt: Int? = null,
+    val cod: String? = null,
+    val list: List<Day>? = null,
+    val message: Int? = null
 )
