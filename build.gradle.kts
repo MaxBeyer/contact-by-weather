@@ -35,6 +35,9 @@ dependencies {
     }
     testImplementation("org.amshove.kluent:kluent:1.61")
     testImplementation("com.github.tomakehurst:wiremock:2.27.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("org.skyscreamer:jsonassert:1.5.0")
 }
 
 tasks.withType<Test> {
