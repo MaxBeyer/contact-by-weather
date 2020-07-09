@@ -7,4 +7,5 @@ class ServiceProperties {
     lateinit var openWeatherUrl: String
     lateinit var appId: String
     lateinit var units: String
+    lateinit var defaultCity: String
 }
