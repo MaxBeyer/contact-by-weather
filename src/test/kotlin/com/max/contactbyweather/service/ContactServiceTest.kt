@@ -10,11 +10,9 @@ import com.max.contactbyweather.domain.ThreeHourWindow
 import com.max.contactbyweather.domain.Weather
 import io.mockk.every
 import io.mockk.mockk
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalDate
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 
 class ContactServiceTest {
 
