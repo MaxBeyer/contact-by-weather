@@ -20,6 +20,7 @@ class OpenWeatherClientTest {
     private val wiremock = WireMockServer(0)
     private val properties = ServiceProperties().apply {
         appId = "09110e603c1d5c272f94f64305c09436"
+        units = "imperial"
     }
     private val client = OpenWeatherClient(properties = properties, restTemplate = RestTemplate())
     private val city = "minneapolis"
@@ -46,7 +47,7 @@ class OpenWeatherClientTest {
     @BeforeEach
     fun setup() {
         wiremock.start()
-        properties.openWeatherUrl = "http://localhost:${wiremock.port()}/forecast?q={city}&appid={appId}"
+        properties.openWeatherUrl = "http://localhost:${wiremock.port()}/forecast?q={city}&appid={appId}&units={units}"
     }
 
     @AfterEach
@@ -68,6 +69,7 @@ class OpenWeatherClientTest {
         response.city?.name shouldBeEqualTo "Minneapolis"
         wiremock.verify(getRequestedFor(urlPathEqualTo("/forecast"))
                 .withQueryParam("q", equalTo("minneapolis"))
-                .withQueryParam("appid", equalTo("09110e603c1d5c272f94f64305c09436")))
+                .withQueryParam("appid", equalTo("09110e603c1d5c272f94f64305c09436"))
+                .withQueryParam("units", equalTo("imperial")))
     }
 }

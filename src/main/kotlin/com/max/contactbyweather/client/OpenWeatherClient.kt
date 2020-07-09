@@ -22,7 +22,8 @@ class OpenWeatherClient(
                 properties.openWeatherUrl,
                 hashMapOf(
                         "city" to city,
-                        "appId" to properties.appId
+                        "appId" to properties.appId,
+                        "units" to properties.units
                 )
         ).also { log.info("Response from OpenWeather API: $it") }
         return when (response.statusCode) {

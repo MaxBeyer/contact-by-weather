@@ -6,4 +6,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 class ServiceProperties {
     lateinit var openWeatherUrl: String
     lateinit var appId: String
+    lateinit var units: String
 }
