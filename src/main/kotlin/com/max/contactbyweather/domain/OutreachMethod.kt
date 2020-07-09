@@ -1,8 +1,8 @@
 package com.max.contactbyweather.domain
 
-enum class OutreachMethod {
-    EMAIL,
-    TEXT_MESSAGE,
-    PHONE_CALL,
-    UNKNOWN
+enum class OutreachMethod(val nameString: String) {
+    EMAIL("email"),
+    TEXT_MESSAGE("text message"),
+    PHONE_CALL("phone call"),
+    UNKNOWN("unknown")
 }
