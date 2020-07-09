@@ -14,6 +14,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 
 class ContactServiceTest {
 
@@ -23,7 +24,8 @@ class ContactServiceTest {
 
     private val client: OpenWeatherClient = mockk()
     private val service = ContactService(client)
-    private val localDate = LocalDateTime.parse("2020-07-08 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).plusSeconds(-18000)
+    private val localDate = LocalDate.now().atTime(17, 0, 0).plusSeconds(-18000).toLocalDate()
+    private val now = LocalDate.now()
 
     @Test
     fun `contact by email`() {
@@ -32,7 +34,7 @@ class ContactServiceTest {
                 list = listOf(ThreeHourWindow(
                         main = Main(temp = 60.00),
                         weather = listOf(Weather(id = 800)),
-                        dt_txt = "2020-07-08 00:00:00"
+                        dt_txt = "$now 17:00:00"
                 )),
                 city = City(
                         timezone = -18000
@@ -54,7 +56,7 @@ class ContactServiceTest {
                 list = listOf(ThreeHourWindow(
                         main = Main(temp = 76.00),
                         weather = listOf(Weather(id = 800)),
-                        dt_txt = "2020-07-08 00:00:00"
+                        dt_txt = "$now 17:00:00"
                 )),
                 city = City(
                         timezone = -18000
@@ -76,7 +78,7 @@ class ContactServiceTest {
                 list = listOf(ThreeHourWindow(
                         main = Main(temp = 54.0),
                         weather = listOf(Weather(id = 300)),
-                        dt_txt = "2020-07-08 00:00:00"
+                        dt_txt = "$now 17:00:00"
                 )),
                 city = City(
                         timezone = -18000
