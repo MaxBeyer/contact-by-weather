@@ -1,12 +1,38 @@
 package com.max.contactbyweather.service
 
 import com.max.contactbyweather.client.OpenWeatherClient
-import com.max.contactbyweather.domain.DateContactMap
+import com.max.contactbyweather.domain.City
+import com.max.contactbyweather.domain.DateToOutreachMap
+import com.max.contactbyweather.domain.OutreachMethod
+import com.max.contactbyweather.domain.ThreeHourWindow
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ContactService(
     private val client: OpenWeatherClient
 ) {
-    fun getContactMethod(city: String): DateContactMap {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+
+    // text message -> when it is sunny and warmer than 75 degrees Fahrenheit
+    // email -> when it is between 55 and 75 degrees Fahrenheit
+    // phone call -> when it is less than 55 degrees or when it is raining.
+    private fun getContactMethodOfDay(threeHourWindow: ThreeHourWindow): OutreachMethod {
+        val temp = threeHourWindow.main?.temp ?: return OutreachMethod.UNKNOWN
+        val weatherId = threeHourWindow.weather?.get(0)?.id // weather.id 2xx, 3xx, and 5xx are all rain
+        return if (temp > 55 && temp < 76) { OutreachMethod.EMAIL } else if (temp < 55 || weatherId in 200..599) { OutreachMethod.PHONE_CALL } else if (temp > 75 && weatherId == 800) { OutreachMethod.TEXT_MESSAGE } else { OutreachMethod.UNKNOWN }
+    }
+
+    private fun getDateOfCity(threeHourWindow: ThreeHourWindow, city: City?): LocalDate {
+        return LocalDateTime.parse(threeHourWindow.dt_txt, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                .plusSeconds(city?.timezone?.toLong() ?: 0L) // this is the timezone offset
+                .toLocalDate()
+    }
+
+    fun getContactMethod(city: String): DateToOutreachMap {
+        val response = client.getForcast(city) ?: return DateToOutreachMap(mapOf()) // if no response, return empty object
+        val dateAndOutreachMethod = response.list?.map { day ->
+            getDateOfCity(day, response.city) to getContactMethodOfDay(day)
+        }?.toMap()
+        return DateToOutreachMap(dateAndOutreachMethod)
     }
 }
