@@ -1,7 +1,7 @@
 package com.max.contactbyweather.domain
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class DateToOutreachMap(
-    val dateToOutreachMethod: Map<LocalDate, OutreachMethod>?
+    internal val dateToOutreachMethod: Map<LocalDateTime, OutreachMethod>?
 )
