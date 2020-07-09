@@ -3,7 +3,7 @@ package com.max.contactbyweather.domain
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Day(
+data class ThreeHourWindow(
     val clouds: Clouds? = null,
     val dt: Int? = null,
     val dt_txt: String? = null,
