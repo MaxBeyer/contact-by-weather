@@ -23,7 +23,7 @@ class ContactServiceTest {
 
     private val client: OpenWeatherClient = mockk()
     private val service = ContactService(client)
-    private val localDate = LocalDateTime.parse("2020-07-08 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).plusSeconds(-18000).toLocalDate()
+    private val localDate = LocalDateTime.parse("2020-07-08 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).plusSeconds(-18000)
 
     @Test
     fun `contact by email`() {
